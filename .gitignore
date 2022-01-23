@@ -1,0 +1,7 @@
+exempel/
+lektion/
+.idea/
+runex.bat
+*.class
+*.jar
+*.iml
