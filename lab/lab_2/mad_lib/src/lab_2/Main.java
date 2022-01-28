@@ -1,4 +1,4 @@
-package lab_1;
+package lab_2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,9 +23,10 @@ public class Main {
 
 
     public static void main(String[] args) {
+
         Scanner keyboardIn = new Scanner(System.in);
         ArrayList<String> answers = new ArrayList<>();
-        String antName = "", liveWith = "", nrOfSiblings = "", whereAnthill = "", carryToAnthill1 = "", carryToAnthill2 = "", spacialDay = "";
+        String antName, liveWith, nrOfSiblings, whereAnthill, carryToAnthill1, carryToAnthill2, spacialDay;
 
         for (String question : WORD_QUESTIONS) {
             System.out.print(question);

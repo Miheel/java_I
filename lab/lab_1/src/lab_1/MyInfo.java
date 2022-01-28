@@ -1,9 +1,10 @@
 package lab_1;
 
 public class MyInfo {
+
     public static String NAME = "Mikael Leuf";
     public static String TOWN = "Hörösand";
-    public static String COURSE_CHOICE = "Java 1 is part of the computer science program on miun";
+    public static String COURSE_CHOICE = "Java 1 is part of the computer science program at miun";
 
     public static void printPersonInfo() {
         System.out.println(textBox("Name", NAME));
@@ -30,6 +31,4 @@ public class MyInfo {
 
         return titleBox + attributeBox;
     }
-
-
 }

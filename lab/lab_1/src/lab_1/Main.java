@@ -1,7 +1,5 @@
 package lab_1;
 
-import javax.naming.Name;
-
 public class Main {
 
     public static void main(String[] args) {
