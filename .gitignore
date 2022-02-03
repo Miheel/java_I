@@ -1,6 +1,7 @@
 exempel/
 lektion/
 .idea/
+javadoc/
 runex.bat
 *.class
 *.jar
