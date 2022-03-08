@@ -3,7 +3,9 @@ lektion/
 .idea/
 javadoc/
 runex.bat
+*.mf
 *.class
 *.jar
 *.iml
 *.docx
+*.png

@@ -1,7 +1,7 @@
 package lab_3;
 
 /**
- * Publisher class represents a publishing firm
+ * Publisher class representing a publishing firm
  * @author Mikael Leuf
  * @version 1.0
  */
@@ -14,8 +14,8 @@ public class Publisher {
      * Creates an empty publisher object
      */
     public Publisher() {
-        this.setName("Not set");
-        this.setPhone("Not set");
+        this.name = "Not set";
+        this.phone = "Not set";
         nrOfPublisher++;
     }
 
@@ -25,11 +25,15 @@ public class Publisher {
      * @param phone phone nr of the publisher
      */
     public Publisher(String name, String phone) {
-        this.setName(name);
-        this.setPhone(phone);
+        this.name = name;
+        this.phone = phone;
         nrOfPublisher++;
     }
 
+    /**
+     * Returns the number of publisher objects created
+     * @return the number of publisher objects created
+     */
     public static int getNrOfPublisher() {
         return nrOfPublisher;
     }

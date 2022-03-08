@@ -58,7 +58,6 @@ public class CommandPrompt {
                 default:
                     wrongCommandError(input);
                     help();
-                    break;
             }
         } while (!quitProgram);
     }
