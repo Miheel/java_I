@@ -14,17 +14,18 @@ public class Menu {
     }
 
     public void printMenu() {
-        final String[] MENU_TEXT = {"1. add         lägga till en person\n" +
-                "2. print       skriva ut listan med personer på skärmen\n" +
-                "3. search      söka en person i listan\n" +
-                "4. remove      ta bort en person från listan\n" +
-                "5. sortN       sortera på namn\n" +
-                "6. sortSig     sortera på signatur\n" +
-                "7. sortH       sortera på längd\n" +
-                "8. shuffle     slumpa ordningen\n" +
-                "9. save        spara listan i en textfil.\n" +
-                "10. read       läsa listan från en textfil.\n" +
-                "0. quit, q     avsluta"};
+        final String[] MENU_TEXT = {"""
+1. add         lägga till en person
+2. print       skriva ut listan med personer på skärmen
+3. search      söka en person i listan
+4. remove      ta bort en person från listan
+5. sortN       sortera på namn
+6. sortSig     sortera på signatur
+7. sortH       sortera på längd
+8. shuffle     slumpa ordningen
+9. save        spara listan i en textfil.
+10. read       läsa listan från en textfil.
+0. quit, q     avsluta"""};
         final String PROMPT = "Input>";
         for (String option : MENU_TEXT) {
             System.out.println(option);
@@ -106,7 +107,7 @@ public class Menu {
         return new Person(forename, surname, height, signature, new Address(postalAddress, zipCode, postOffice));
     }
 
-    public Person makePerson(String[] personString){
+    public Person makePerson(String[] personString) {
         return new Person(personString[0], personString[1], Integer.parseInt(personString[3]), personString[2], new Address(personString[4], personString[5], personString[6]));
     }
 
