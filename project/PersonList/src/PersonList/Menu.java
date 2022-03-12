@@ -3,41 +3,28 @@ package PersonList;
 import java.util.*;
 
 public class Menu {
-    private static final String  ADD = "add";
-    private static final String  PRINT =  "print";
-    private static final String  SEARCH = "search" ;
-    private static final String  REMOVE =  "remove";
-    private static final String  SORT_NAME =  "sortN";
-    private static final String  SORT_SIGNATURE =  "sortSig";
-    private static final String  SORT_HEIGHT =  "sortH";
-    private static final String  SHUFFLE =  "shuffle";
-    private static final String  SAVE =  "save";
-    private static final String  READ =  "read";
-    private static final String  QUIT =  "quit";
-    private static final String  Q =  "q";
-    private static final String[] MENU_TEXT = {"1. add         lägga till en person\n" +
-            "2. print       skriva ut listan med personer på skärmen\n" +
-            "3. search      söka en person i listan\n" +
-            "4. remove      ta bort en person från listan\n" +
-            "5. sortN       sortera på namn\n" +
-            "6. sortSig     sortera på signatur\n" +
-            "7. sortH       sortera på längd\n" +
-            "8. shuffle     slumpa ordningen\n" +
-            "9. save        spara listan i en textfil.\n" +
-            "10. read       läsa listan från en textfil.\n" +
-            "0. quit, q     avsluta"};
-    private static final String PROMPT = "Input>";
 
     private final Scanner keyboardIn = new Scanner(System.in);
 
     private List<Person> personList = new ArrayList<>();
-
-
+    
     Menu() {
         start();
     }
 
     public void printMenu() {
+        final String[] MENU_TEXT = {"1. add         lägga till en person\n" +
+                "2. print       skriva ut listan med personer på skärmen\n" +
+                "3. search      söka en person i listan\n" +
+                "4. remove      ta bort en person från listan\n" +
+                "5. sortN       sortera på namn\n" +
+                "6. sortSig     sortera på signatur\n" +
+                "7. sortH       sortera på längd\n" +
+                "8. shuffle     slumpa ordningen\n" +
+                "9. save        spara listan i en textfil.\n" +
+                "10. read       läsa listan från en textfil.\n" +
+                "0. quit, q     avsluta"};
+        final String PROMPT = "Input>";
         for (String option : MENU_TEXT) {
             System.out.println(option);
         }
@@ -46,6 +33,19 @@ public class Menu {
     }
 
     public void start() {
+        final String ADD = "add";
+        final String PRINT = "print";
+        final String SEARCH = "search";
+        final String REMOVE = "remove";
+        final String SORT_NAME = "sortN";
+        final String SORT_SIGNATURE = "sortSig";
+        final String SORT_HEIGHT = "sortH";
+        final String SHUFFLE = "shuffle";
+        final String SAVE = "save";
+        final String READ = "read";
+        final String QUIT = "quit";
+        final String Q = "q";
+
         boolean run = true;
         do {
             printMenu();
@@ -88,6 +88,7 @@ public class Menu {
                     break;
                 case "0", QUIT, Q:
                     run = stop();
+
                     break;
                 default:
                     System.out.println("Invalid option try again");
@@ -124,7 +125,8 @@ public class Menu {
         Person tempP5 = new Person("micke", "leuf", 174, signature, new Address("frideborgsgatan", "87160", "härnösand"));
         signature = makeSignature("bo", "ek");
         Person tempP6 = new Person("micke", "leuf", 174, signature, new Address("frideborgsgatan", "87160", "härnösand"));
-
+        signature = makeSignature("w", "e");
+        Person tempP7 = new Person("w", "e", 174, signature, new Address("frideborgsgatan", "87160", "härnösand"));
 
 
         personList.add(tempP1);
@@ -133,6 +135,7 @@ public class Menu {
 
         personList.add(tempP5);
         personList.add(tempP6);
+        personList.add(tempP7);
     }
 
     public Person makePerson() {
@@ -166,27 +169,30 @@ public class Menu {
 
         if (forename.length() <= 3) {
             IDPart1 = forename;
-            IDPart1 += forename.length() == 2 ? "x": "xx";
+            //IDPart1 += forename.length() == 2 ? "x" : "xx";
+            IDPart1 = String.format("%-3s",IDPart1).replace(' ', 'x');
+
         } else {
             IDPart1 = forename.substring(0, 3);
         }
-
+        String temp;
         if (surname.length() <= 3) {
             IDPart2 = surname;
-            IDPart2 += surname.length() == 2 ? "x": "xx";
+            //IDPart2 += surname.length() == 2 ? "x" : "xx";
+            IDPart2 = String.format("%-3s",IDPart2).replace(' ', 'x');
         } else {
             IDPart2 = surname.substring(0, 3);
         }
 
-        numberOfOccurrences += count(IDPart1 + IDPart2);
+        numberOfOccurrences += countOccurrencesOfID(IDPart1 + IDPart2);
 
         return IDPart1 + IDPart2 + String.format("%02d", numberOfOccurrences);
     }
 
-    private int count(String s) {
+    private int countOccurrencesOfID(String s) {
         int counter = 0;
-        for (Person person: personList) {
-            if (person.getSignature().contains(s)){
+        for (Person person : personList) {
+            if (person.getSignature().contains(s)) {
                 counter++;
             }
         }
@@ -233,4 +239,5 @@ public class Menu {
     public void shuffle() {
         PersonListModifier.shuffle(personList);
     }
+
 }
