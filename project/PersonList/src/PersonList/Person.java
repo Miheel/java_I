@@ -52,6 +52,7 @@ public class Person {
     public void setSignature(String signature) {
         this.signature = signature;
     }
+
     public Address getAddress() {
         return address;
     }
@@ -64,8 +65,8 @@ public class Person {
         this.address = new Address(postalAddress, zipCode, postOffice);
     }
 
-    public void printPerson(){
-        System.out.printf("%-10s %-20.20s %.2f\n", getSignature(), getForename() + " " + getSurname() , getHeightM());
+    public void printPerson() {
+        System.out.printf("%-10s %-20.20s %.2f\n", getSignature(), getForename() + " " + getSurname(), getHeightM());
     }
 
     @Override
@@ -77,26 +78,37 @@ public class Person {
                 ", address=" + address +
                 '}';
     }
+
+    public String toSerial() {
+        return forename + '|' +
+                surname + '|' +
+                signature + '|' +
+                height + '|' +
+                address.getPostalAddress() + '|' +
+                address.getZipCode() + '|' +
+                address.getPostOffice() + '\n';
+    }
+
 }
 
-class ComparePersonName implements Comparator<Person>{
+class ComparePersonName implements Comparator<Person> {
     @Override
     public int compare(Person p1, Person p2) {
-        if (p1.getSurname().equals(p2.getSurname())){
+        if (p1.getSurname().equals(p2.getSurname())) {
             return p1.getForename().compareTo(p2.getForename());
         }
         return p1.getSurname().compareTo(p2.getSurname());
     }
 }
 
-class ComparePersonSignature implements Comparator<Person>{
+class ComparePersonSignature implements Comparator<Person> {
     @Override
     public int compare(Person p1, Person p2) {
         return p1.getSignature().compareTo(p2.getSignature());
     }
 }
 
-class ComparePersonHeight implements Comparator<Person>{
+class ComparePersonHeight implements Comparator<Person> {
     @Override
     public int compare(Person p1, Person p2) {
         return p1.getHeightCM() - p2.getHeightCM();

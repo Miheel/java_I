@@ -31,7 +31,7 @@ public class PersonListModifier {
         return false;
     }
 
-    public static void sortPersons(List<Person> personList, Comparator comparator) {
+    public static void sortPersons(List<Person> personList, Comparator<Person> comparator) {
         personList.sort(comparator);
     }
 
