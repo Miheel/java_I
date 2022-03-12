@@ -4,10 +4,11 @@ import java.util.*;
 
 public class Menu {
 
+    private final String SAVE_FILE = "personList.txt";
     private final Scanner keyboardIn = new Scanner(System.in);
 
     private List<Person> personList = new ArrayList<>();
-    
+
     Menu() {
         start();
     }
@@ -53,47 +54,26 @@ public class Menu {
             String userInput = keyboardIn.nextLine();
 
             switch (userInput) {
-                case "1", ADD:
-                    addPerson();
-                    break;
-                case "2", PRINT:
-                    print();
-                    break;
-                case "3", SEARCH:
-                    search();
-                    break;
-                case "4", REMOVE:
-                    remove();
-                    break;
-                case "5", SORT_NAME:
-                    //sortByName
-                    sort(new ComparePersonName());
-                    break;
-                case "6", SORT_SIGNATURE:
-                    //sortBySignature
-                    sort(new ComparePersonSignature());
-                    break;
-                case "7", SORT_HEIGHT:
-                    //sortByHeight
-                    sort(new ComparePersonHeight());
-                    break;
-                case "8", SHUFFLE:
-                    shuffle();
-                    break;
-                case "9", SAVE:
-                    //saveToFile();
-                    break;
-                case "10", READ:
-                    //personList = readFromFile();
-                    break;
-                case "0", QUIT, Q:
-                    run = stop();
-
-                    break;
-                default:
-                    System.out.println("Invalid option try again");
+                case "1", ADD -> personList.add(makePerson());
+                case "2", PRINT -> print();
+                case "3", SEARCH -> search();
+                case "4", REMOVE -> remove();
+                case "5", SORT_NAME ->
+                        //sortByName
+                        sort(new ComparePersonName());
+                case "6", SORT_SIGNATURE ->
+                        //sortBySignature
+                        sort(new ComparePersonSignature());
+                case "7", SORT_HEIGHT ->
+                        //sortByHeight
+                        sort(new ComparePersonHeight());
+                case "8", SHUFFLE -> shuffle();
+                case "9", SAVE -> saveListToFile();
+                case "10", READ -> readFromFile();
+                case "0", QUIT, Q -> run = stop();
+                default -> System.out.println("Invalid option try again");
             }
-        } while (run == true);
+        } while (run);
     }
 
     private boolean stop() {
@@ -103,39 +83,6 @@ public class Menu {
 
     private void PersonListSize() {
         System.out.println("Number of persons in current list: " + personList.size());
-    }
-
-    public void addPerson() {
-
-        String signature = makeSignature("micke", "leuf");
-        Person tempP = new Person("micke", "leuf", 174, signature, new Address("frideborgsgatan", "87160", "härnösand"));
-        personList.add(tempP);
-        signature = makeSignature("micke", "leuf");
-        Person tempP4 = new Person("micke", "leuf", 145, signature, new Address("frideborgsgatan", "87160", "härnösand"));
-        personList.add(tempP4);
-
-        signature = makeSignature("linda", "leuf");
-        Person tempP1 = new Person("linda", "leuf", 154, signature, new Address("frideborgsgatan", "87160", "härnösand"));
-        signature = makeSignature("johan Alexander lugvig", "norgren");
-        Person tempP2 = new Person("johan Alexander lugvig", "norgren", 175, signature, new Address("frideborgsgatan", "87160", "härnösand"));
-        signature = makeSignature("martin", "yxberg");
-        Person tempP3 = new Person("martin", "yxberg", 180, signature, new Address("frideborgsgatan", "87160", "härnösand"));
-
-        signature = makeSignature("carl", "ek");
-        Person tempP5 = new Person("micke", "leuf", 174, signature, new Address("frideborgsgatan", "87160", "härnösand"));
-        signature = makeSignature("bo", "ek");
-        Person tempP6 = new Person("micke", "leuf", 174, signature, new Address("frideborgsgatan", "87160", "härnösand"));
-        signature = makeSignature("w", "e");
-        Person tempP7 = new Person("w", "e", 174, signature, new Address("frideborgsgatan", "87160", "härnösand"));
-
-
-        personList.add(tempP1);
-        personList.add(tempP2);
-        personList.add(tempP3);
-
-        personList.add(tempP5);
-        personList.add(tempP6);
-        personList.add(tempP7);
     }
 
     public Person makePerson() {
@@ -156,8 +103,11 @@ public class Menu {
 
         String signature = makeSignature(forename, surname);
 
-        Person tempP = new Person(forename, surname, height, signature, new Address(postalAddress, zipCode, postOffice));
-        return tempP;
+        return new Person(forename, surname, height, signature, new Address(postalAddress, zipCode, postOffice));
+    }
+
+    public Person makePerson(String[] personString){
+        return new Person(personString[0], personString[1], Integer.parseInt(personString[3]), personString[2], new Address(personString[4], personString[5], personString[6]));
     }
 
     public String makeSignature(String forename, String surname) {
@@ -170,7 +120,7 @@ public class Menu {
         if (forename.length() <= 3) {
             IDPart1 = forename;
             //IDPart1 += forename.length() == 2 ? "x" : "xx";
-            IDPart1 = String.format("%-3s",IDPart1).replace(' ', 'x');
+            IDPart1 = String.format("%-3s", IDPart1).replace(' ', 'x');
 
         } else {
             IDPart1 = forename.substring(0, 3);
@@ -179,7 +129,7 @@ public class Menu {
         if (surname.length() <= 3) {
             IDPart2 = surname;
             //IDPart2 += surname.length() == 2 ? "x" : "xx";
-            IDPart2 = String.format("%-3s",IDPart2).replace(' ', 'x');
+            IDPart2 = String.format("%-3s", IDPart2).replace(' ', 'x');
         } else {
             IDPart2 = surname.substring(0, 3);
         }
@@ -232,7 +182,7 @@ public class Menu {
         }
     }
 
-    public void sort(Comparator comparator) {
+    public void sort(Comparator<Person> comparator) {
         PersonListModifier.sortPersons(personList, comparator);
     }
 
@@ -240,4 +190,15 @@ public class Menu {
         PersonListModifier.shuffle(personList);
     }
 
+    private void saveListToFile() {
+        PersonListReadWrite.writeToFile(personList, SAVE_FILE);
+    }
+
+    private void readFromFile() {
+        List<String> tempList = PersonListReadWrite.readFromFile(SAVE_FILE);
+        personList.clear();
+        for (String line : tempList) {
+            personList.add(makePerson(line.split("\\|")));
+        }
+    }
 }
