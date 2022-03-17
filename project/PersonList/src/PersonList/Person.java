@@ -2,6 +2,9 @@ package PersonList;
 
 import java.util.Comparator;
 
+/**
+ * class representing a Person object
+ */
 public class Person {
     private String forename;
     private String surname;
@@ -86,7 +89,7 @@ public class Person {
                 height + '|' +
                 address.getPostalAddress() + '|' +
                 address.getZipCode() + '|' +
-                address.getPostOffice() + '\n';
+                address.getPostOffice();
     }
 
 }

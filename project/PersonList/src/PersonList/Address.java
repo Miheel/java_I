@@ -1,5 +1,8 @@
 package PersonList;
 
+/**
+ * class representing an Address object
+ */
 public class Address {
     private String postalAddress;
     private String zipCode;
