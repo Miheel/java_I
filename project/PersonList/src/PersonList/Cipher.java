@@ -20,6 +20,13 @@ public class Cipher {
     }
 
 
+    /**
+     * caesar cipher encoding a text string with a given shift
+     * decode with number of chars - key
+     * @param str stirng to be encoded/decoded
+     * @param key nuber of times a char will be shifted
+     * @return a encoded string
+     */
     public String caesar(String str, int key) {
 
         int rangeCount = this.endChar - this.startChar;
